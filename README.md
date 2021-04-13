@@ -1,2 +1,2 @@
-# codeigniter4-menu
+# Tatter\Menus
 Dynamic menus for CodeIgniter 4
