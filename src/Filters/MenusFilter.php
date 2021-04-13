@@ -3,7 +3,7 @@
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Tatter\Menus\Interfaces\MenuInterface;
+use Tatter\Menus\Menu;
 use RuntimeException;
 
 /**
@@ -14,6 +14,9 @@ use RuntimeException;
  */
 class MenusFilter implements FilterInterface
 {
+	/**
+	 * @codeCoverageIgnore
+	 */
 	public function before(RequestInterface $request, $arguments = null)
 	{
 	}
@@ -30,9 +33,17 @@ class MenusFilter implements FilterInterface
 	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null): ?ResponseInterface
 	{
 		// Check a few short-circuit conditions
-		if (empty($arguments) || ($request->isCLI() && ENVIRONMENT !== 'testing') || strpos($response->getHeaderLine('Content-Type'), 'html') === false || empty($response->getBody()))
+		if (empty($arguments))
 		{
-			return null;
+			throw new RuntimeException('No arguments supplied to Menus filter.');
+		}
+		if (empty($response->getBody()))
+		{
+			throw new RuntimeException('Response body is empty.');
+		}
+		if (strpos($response->getHeaderLine('Content-Type'), 'html') === false)
+		{
+			throw new RuntimeException('Menus may only be applied to HTML content.');
 		}
 
 		$config = config('Menus');
@@ -51,13 +62,13 @@ class MenusFilter implements FilterInterface
 				throw new RuntimeException('Unable to locate menu class: ' . $class);
 			}
 
-			if (! is_a($class, MenuInterface::class, true))
+			if (! is_a($class, Menu::class, true))
 			{
-				throw new RuntimeException($class . ' must implement MenuInterface');
+				throw new RuntimeException($class . ' must extend ' . Menu::class);
 			}
 
 			// Grab the menu content
-			$content = (new $class)->render();
+			$content = (new $class)->get();
 			$count   = 0;
 
 			// Swap the content for the placeholder and verify a match

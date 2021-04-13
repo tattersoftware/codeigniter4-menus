@@ -1,15 +1,16 @@
 <?php namespace Tests\Support\Menus;
 
-use Tatter\Menus\Interfaces\MenuInterface;
+use Tatter\Menus\Menu;
 
-class TestMenu implements MenuInterface
+class TestMenu extends Menu
 {
 	/**
-	 * Renders the menu as an HTML string.
+	 * Builds the Menu and returns the
+	 * rendered HTML string.
 	 *
 	 * @return string
 	 */
-	public function render(): string
+	public function get(): string
 	{
 		return 'bananas';
 	}
