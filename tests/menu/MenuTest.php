@@ -37,11 +37,26 @@ class MenuTest extends MenusTestCase
 		};
 	}
 
-	public function testBuilder()
+	public function testGetBuilder()
 	{
 		$result = $this->menu->builder();
 
 		$this->assertInstanceOf(BaseMenu::class, $result);
+	}
+
+	public function testUsesBuilder()
+	{
+		$menu = new class(BaseMenu::new()->link('/home', 'asparagus')) extends Menu {
+
+			public function get(): string
+			{
+				return $this->builder->render();
+			}
+		};
+
+		$result = $menu->get();
+
+		$this->assertSame('<ul><li><a href="/home">asparagus</a></li></ul>', $result);
 	}
 
 	public function testGetUsesCurrentUrl()
