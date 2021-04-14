@@ -1,5 +1,6 @@
 <?php namespace Tatter\Menus;
 
+use CodeIgniter\HTTP\URI;
 use Spatie\Menu\Menu as BaseMenu;
 use Tatter\Menus\Interfaces\MenuInterface;
 
@@ -26,7 +27,10 @@ abstract class Menu
 	 */
     public function __construct(BaseMenu $builder = null)
     {
-    	$this->builder = $builder ?? BaseMenu::new()->setActive(current_url(), base_url());
+    	$this->builder = $builder ?? BaseMenu::new()->setActive(
+    		current_url(true)->getPath(),
+    		(new URI(base_url()))->getPath() ?? '/'
+    	);
 	}
 
 	/**
