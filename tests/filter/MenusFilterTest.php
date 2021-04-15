@@ -5,7 +5,7 @@ use CodeIgniter\Test\FilterTestTrait;
 use Tatter\Menus\Filters\MenusFilter;
 use Tests\Support\MenusTestCase;
 
-class FilterFailureTest extends MenusTestCase
+class MenusFilterTest extends MenusTestCase
 {
 	use FilterTestTrait;
 
@@ -86,5 +86,14 @@ class FilterFailureTest extends MenusTestCase
 		$this->expectExceptionMessage('Missing placeholder text for menu: test');
 
 		$caller(['test']);
+	}
+
+	public function testValid()
+	{
+		$result = ($this->caller)(['test']);
+		$this->assertInstanceOf(ResponseInterface::class, $result);
+
+		$body = $result->getBody();
+		$this->assertSame('bananas', $body);		
 	}
 }
