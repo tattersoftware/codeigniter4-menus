@@ -51,10 +51,10 @@ class MainMenu extends \Tatter\Menus\Menu
 	public function get(): string
 	{
 		return $this->builder
-			->link('/', 'Home')
-			->link('/about', 'About')
+			->link(site_url('/'), 'Home')
+			->link(site_url('/about'), 'About')
 			->html('<hr>')
-			->link('/contact', 'Contact')
+			->link(site_url('/contact'), 'Contact')
 			->render();
 	}
 }
@@ -67,6 +67,11 @@ class FruitMenu extends \Tatter\Menus\Menu
 	}
 }
 ```
+
+Note: `$builder` is initialized with "set active" to the current URL. You may call `setActive()`
+again to remove or change the active menu item. Due to a limitation in `Spatie\Menu` with mixing
+relative and absolute URLs you must supply full URL values (e.g. with `site_url()`) to your
+`Menu` if you want to use this default "active" URL.
 
 ### Deploying
 

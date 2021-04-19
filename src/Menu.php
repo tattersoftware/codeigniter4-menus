@@ -2,7 +2,6 @@
 
 use CodeIgniter\HTTP\URI;
 use Spatie\Menu\Menu as BaseMenu;
-use Tatter\Menus\Interfaces\MenuInterface;
 
 /**
  * Menu Class
@@ -22,21 +21,23 @@ abstract class Menu
 	/**
 	 * Initializes the Spatie Menu and
 	 * sets the current URL to be "active".
+	 * Calls any additional functions
+	 * from traits.
 	 *
 	 * @param BaseMenu|null $builder
 	 */
     public function __construct(BaseMenu $builder = null)
     {
-    	$this->builder = $builder ?? BaseMenu::new()->setActive(
-    		current_url(true)->getPath(),
-    		(new URI(base_url()))->getPath() ?? '/'
-    	);
+		$this->builder = $builder ?? BaseMenu::new()->setActive(
+			current_url(),
+			(new URI(base_url()))->getPath() ?? '/'
+		);
 	}
 
 	/**
 	 * Returns the underlying Spatie Menu.
 	 */
-    public function builder(): BaseMenu
+	public function builder(): BaseMenu
     {
     	return $this->builder;
 	}
