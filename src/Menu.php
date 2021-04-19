@@ -32,6 +32,16 @@ abstract class Menu
 			current_url(),
 			(new URI(base_url()))->getPath() ?? '/'
 		);
+
+		foreach (class_uses_recursive($this) as $trait)
+		{
+			$method = 'apply' . class_basename($trait);
+
+			if (method_exists($this, $method))
+			{
+				$this->$method();
+			}
+		}
 	}
 
 	/**
