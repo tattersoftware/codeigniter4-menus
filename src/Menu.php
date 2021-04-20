@@ -58,5 +58,5 @@ abstract class Menu
 	 *
 	 * @return string
 	 */
-	abstract public function get(): string;
+	abstract public function __toString(): string;
 }

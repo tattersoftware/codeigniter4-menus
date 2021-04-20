@@ -42,13 +42,13 @@ Use their documentation to craft your menus as simple or complex as you like:
 * [Version 3](https://spatie.be/docs/menu/v3) (PHP 8 only)
 
 Create your menus by extending `Tatter\Menus\Menu`. You will notice in the source code that
-`Menu` requires you to provide one method: `public function get(): string;`. You may use the
+`Menu` requires you to provide one method: `public function __toString(): string;`. You may use the
 supplied `$builder` property to access the underlying `Spatie\Menu` to build your menu,
 or provide your own HTML code or `view()` return. Some examples:
 ```
 class MainMenu extends \Tatter\Menus\Menu
 {
-	public function get(): string
+	public function __toString(): string
 	{
 		return $this->builder
 			->link(site_url('/'), 'Home')
@@ -61,7 +61,7 @@ class MainMenu extends \Tatter\Menus\Menu
 
 class FruitMenu extends \Tatter\Menus\Menu
 {
-	public function get(): string
+	public function __toString(): string
 	{
 		return view('menus/fruit', ['active' => 'banana']);
 	}
@@ -75,7 +75,7 @@ relative and absolute URLs you must supply full URL values (e.g. with `site_url(
 
 ### Deploying
 
-Since `Menu->get()` returns a `string` it can be used in your view or layout files as is.
+Since `Menu` is `Stringable` it can be used in your view or layout files as is.
 However, **Menus** also comes with a [Controller Filter](https://codeigniter4.github.io/CodeIgniter4/incoming/filters.html)
 that you can use to inject menu content directly into your responses. First you need to create
 an alias for each `Menu` class you would like to use. Create **app/Config/Menus.php** (or

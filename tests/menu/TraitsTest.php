@@ -12,7 +12,7 @@ class TraitsTest extends MenusTestCase
 
 			use Bootstrap;
 
-			public function get(): string
+			public function __toString(): string
 			{
 				return $this->builder
 					->link(site_url('/'), 'Home')
@@ -21,7 +21,7 @@ class TraitsTest extends MenusTestCase
 			}
 		};
 
-		$result = $menu->get();
+		$result = $menu->__toString();
 
 		$this->assertStringContainsString('li class="nav-item"', $result);
 		$this->assertStringContainsString('class="nav-link"', $result);
