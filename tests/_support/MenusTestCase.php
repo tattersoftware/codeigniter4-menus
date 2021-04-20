@@ -5,12 +5,15 @@ use CodeIgniter\HTTP\URI;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\App;
 use Config\Services;
+use Nexus\PHPUnit\Extension\Expeditable;
 use Tatter\Menus\Config\Menus as MenusConfig;
 use Tests\Support\Menus\NotMenu;
 use Tests\Support\Menus\TestMenu;
 
 class MenusTestCase extends CIUnitTestCase
 {
+	use Expeditable;
+
 	/**
 	 * The configuration.
 	 *
