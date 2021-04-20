@@ -21,7 +21,7 @@ class MenuTest extends MenusTestCase
 
 		$this->menu = new class extends Menu {
 
-			public function get(): string
+			public function __toString(): string
 			{
 				return $this->builder
 					->link(site_url('/'), 'Home')
@@ -42,13 +42,13 @@ class MenuTest extends MenusTestCase
 	{
 		$menu = new class(BaseMenu::new()->link(site_url('/home'), 'asparagus')) extends Menu {
 
-			public function get(): string
+			public function __toString(): string
 			{
 				return $this->builder->render();
 			}
 		};
 
-		$result = $menu->get();
+		$result = (string) $menu;
 
 		$this->assertSame('<ul><li><a href="http://example.com/home">asparagus</a></li></ul>', $result);
 	}
@@ -56,7 +56,7 @@ class MenuTest extends MenusTestCase
 	public function testGetUsesCurrentUrl()
 	{
 		$expected = '<ul><li><a href="http://example.com/">Home</a></li><li class="active exact-active"><a href="http://example.com/current">Grain</a></li></ul>';
-		$result   = $this->menu->get();
+		$result   = $this->menu->__toString();
 
 		$this->assertSame($expected, $result);
 	}

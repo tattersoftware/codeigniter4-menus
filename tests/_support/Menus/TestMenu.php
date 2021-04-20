@@ -10,7 +10,7 @@ class TestMenu extends Menu
 	 *
 	 * @return string
 	 */
-	public function get(): string
+	public function __toString(): string
 	{
 		return 'bananas';
 	}

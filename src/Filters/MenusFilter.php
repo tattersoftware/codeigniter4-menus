@@ -68,7 +68,7 @@ class MenusFilter implements FilterInterface
 			}
 
 			// Grab the menu content
-			$content = (new $class)->get();
+			$content = (string) (new $class);
 			$count   = 0;
 
 			// Swap the content for the placeholder and verify a match
