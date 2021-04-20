@@ -1,7 +1,10 @@
 <?php namespace Tests\Support;
 
 use CodeIgniter\Config\Factories;
+use CodeIgniter\HTTP\URI;
 use CodeIgniter\Test\CIUnitTestCase;
+use Config\App;
+use Config\Services;
 use Tatter\Menus\Config\Menus as MenusConfig;
 use Tests\Support\Menus\NotMenu;
 use Tests\Support\Menus\TestMenu;
@@ -19,6 +22,18 @@ class MenusTestCase extends CIUnitTestCase
 	{
 		parent::setUp();
 
+		// Use some standard settings that affect URLs
+		$config = new App();
+		$config->baseURL   = 'http://example.com';
+		$config->indexPage = '';
+		Factories::injectMock('config', 'App', $config);
+
+		// Set a current URL for checking "active" links
+		$request      = Services::request();
+		$request->uri = new URI(site_url('current'));
+		Services::injectMock('request', $request);
+
+		// Create some Menu aliases for testing
 		$config          = new MenusConfig();
 		$config->aliases = [
 			'test' => TestMenu::class,

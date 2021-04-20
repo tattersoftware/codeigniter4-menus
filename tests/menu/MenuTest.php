@@ -1,7 +1,5 @@
 <?php namespace Tests\Support;
 
-use CodeIgniter\HTTP\URI;
-use Config\Services;
 use Spatie\Menu\Menu as BaseMenu;
 use Tatter\Menus\Menu;
 use Tests\Support\MenusTestCase;
@@ -21,17 +19,13 @@ class MenuTest extends MenusTestCase
 	{
 		parent::setUp();
 
-		$request      = Services::request();
-		$request->uri = new URI('http://example.com/bulgar');
-		Services::injectMock('request', $request);
-
 		$this->menu = new class extends Menu {
 
 			public function get(): string
 			{
 				return $this->builder
-					->link('/', 'Home')
-					->link('/bulgar', 'Grain')
+					->link(site_url('/'), 'Home')
+					->link(site_url('/current'), 'Grain')
 					->render();
 			}
 		};
@@ -46,7 +40,7 @@ class MenuTest extends MenusTestCase
 
 	public function testUsesBuilder()
 	{
-		$menu = new class(BaseMenu::new()->link('/home', 'asparagus')) extends Menu {
+		$menu = new class(BaseMenu::new()->link(site_url('/home'), 'asparagus')) extends Menu {
 
 			public function get(): string
 			{
@@ -56,12 +50,12 @@ class MenuTest extends MenusTestCase
 
 		$result = $menu->get();
 
-		$this->assertSame('<ul><li><a href="/home">asparagus</a></li></ul>', $result);
+		$this->assertSame('<ul><li><a href="http://example.com/home">asparagus</a></li></ul>', $result);
 	}
 
 	public function testGetUsesCurrentUrl()
 	{
-		$expected = '<ul><li><a href="/">Home</a></li><li class="active exact-active"><a href="/bulgar">Grain</a></li></ul>';
+		$expected = '<ul><li><a href="http://example.com/">Home</a></li><li class="active exact-active"><a href="http://example.com/current">Grain</a></li></ul>';
 		$result   = $this->menu->get();
 
 		$this->assertSame($expected, $result);
