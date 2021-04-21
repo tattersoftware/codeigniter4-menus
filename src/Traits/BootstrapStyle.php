@@ -10,9 +10,9 @@ use Spatie\Menu\Link;
  *
  * @mixin \Tatter\Menus\Menu
  */
-trait Bootstrap
+trait BootstrapStyle
 {
-	protected function applyBootstrap(): void
+	protected function applyBootstrapStyle(): void
     {
 		$this->builder->registerFilter(function (Link $link) {
 			$link->addParentClass('nav-item');

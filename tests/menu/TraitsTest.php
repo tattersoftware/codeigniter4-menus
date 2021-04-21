@@ -1,7 +1,7 @@
 <?php namespace Tests\Support;
 
 use Tatter\Menus\Menu;
-use Tatter\Menus\Traits\Bootstrap;
+use Tatter\Menus\Traits\BootstrapStyle;
 use Tests\Support\MenusTestCase;
 
 class TraitsTest extends MenusTestCase
@@ -10,7 +10,7 @@ class TraitsTest extends MenusTestCase
 	{
 		$menu = new class extends Menu {
 
-			use Bootstrap;
+			use BootstrapStyle;
 
 			public function __toString(): string
 			{
