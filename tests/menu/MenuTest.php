@@ -12,8 +12,7 @@ class MenuTest extends MenusTestCase
 	private $menu;
 
 	/**
-	 * Sets the current URL and creates
-	 * a basic Menu to use for testing.
+	 * Creates a basic Menu to use for testing.
 	 */
 	protected function setUp(): void
 	{
