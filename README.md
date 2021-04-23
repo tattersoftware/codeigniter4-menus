@@ -130,3 +130,44 @@ class MainMenuFilter extends MenusFilter
 	}
 }
 ```
+
+## Packaged Menus
+
+`Menus` comes with some pre-made menus which can be used immediately or built on to create
+your own variants. All menus are in the `Tatter\Menus\Menus` namespace and extend the `Menu`
+class so can be used with the Filter or as any other menu you would make.
+
+### Breadcrumbs
+
+The `BreadcrumbsMenu` is a special menu, using horizontal-style navigation links for nested
+content. This menu comes pre-styled for [Bootstrap](https://getbootstrap.com/docs/4.3/components/breadcrumb/)
+and defaults to the segments retrieved from the framework's `IncomingRequest::$uri`, but
+you may provide your own using the static methods `set`, `get`, `push`, and `pop`. Additionally,
+`BreadcrumbsMenu::discover()` will attempt to create a default menu. All these methods use
+the `Breadcrumb` class, a simple wrapper for the URL and display value.
+For example:
+```
+use Tatter\Menus\Breadcrumb;
+use Tatter\Menus\Menus\BreadcrumbsMenu;
+
+class Users extends Controller
+{
+	public function show(int $userId)
+	{
+		// Get the User
+		$user = model('UserModel')->find($userId);
+
+		// Start with the default breadcrumbs
+		BreadcrumbsMenu::discover();
+
+		// Pop off the numeric last segment
+		BreadcrumbsMenu::pop();
+
+		// Replace it with the user's name
+		BreadcrumbsMenu::push(new Breadcrumb(current_url(), $user->name));
+
+		return view('users/show', ['user' => $user]);
+	}
+}
+```
+... if you have the filter in place the rest is handled for you.
