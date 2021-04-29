@@ -1,4 +1,4 @@
-<?php namespace Tatter\Menus\Traits;
+<?php namespace Tatter\Menus\Styles;
 
 use Spatie\Menu\Link;
 

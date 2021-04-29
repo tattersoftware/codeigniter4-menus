@@ -4,7 +4,7 @@ use Config\Services;
 use CodeIgniter\HTTP\URI;
 use Tatter\Menus\Breadcrumb;
 use Tatter\Menus\Menu;
-use Tatter\Menus\Traits\BreadcrumbsStyle;
+use Tatter\Menus\Styles\BreadcrumbsStyle;
 
 /**
  * Breadcrumbs Menu
@@ -124,7 +124,8 @@ class BreadcrumbsMenu extends Menu
 		}
 
 		return $this->builder
-			->html($last->display, ['class' => 'breadcrumb-item active'])
-			->render();
+			->html($last->display, [
+				'class' => 'breadcrumb-item active'
+			])->render();
 	}
 }

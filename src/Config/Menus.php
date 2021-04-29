@@ -1,6 +1,7 @@
 <?php namespace Tatter\Menus\Config;
 
 use CodeIgniter\Config\BaseConfig;
+use Tatter\Menus\Menus\BreadcrumbsMenu;
 
 class Menus extends BaseConfig
 {
@@ -9,5 +10,7 @@ class Menus extends BaseConfig
 	 *
 	 * @var array<string, string>
 	 */
-	public $aliases = [];
+	public $aliases = [
+		'breadcrumbs' => BreadcrumbsMenu::class,
+	];
 }
