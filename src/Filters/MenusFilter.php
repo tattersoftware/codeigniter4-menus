@@ -1,9 +1,11 @@
 <?php namespace Tatter\Menus\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Tatter\Menus\Menu;
+use InvalidArgumentException;
 use RuntimeException;
 
 /**
@@ -32,10 +34,15 @@ class MenusFilter implements FilterInterface
 	 */
 	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null): ?ResponseInterface
 	{
-		// Check a few short-circuit conditions
+		// Verify menu conditions
 		if (empty($arguments))
 		{
-			throw new RuntimeException('No arguments supplied to Menus filter.');
+			throw new InvalidArgumentException('No arguments supplied to Menus filter.');
+		}
+		// Ignore Redirects
+		if ($response instanceof RedirectResponse)
+		{
+			return null;
 		}
 		if (empty($response->getBody()))
 		{

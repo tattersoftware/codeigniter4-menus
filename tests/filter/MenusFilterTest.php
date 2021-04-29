@@ -1,5 +1,6 @@
 <?php namespace Tests\Support;
 
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Test\FilterTestTrait;
 use Tatter\Menus\Filters\MenusFilter;
@@ -25,7 +26,7 @@ class MenusFilterTest extends MenusTestCase
 
 	public function testEmptyArguments()
 	{
-		$this->expectException('RuntimeException');
+		$this->expectException('InvalidArgumentException');
 		$this->expectExceptionMessage('No arguments supplied to Menus filter.');
 
 		($this->caller)();
@@ -51,6 +52,16 @@ class MenusFilterTest extends MenusTestCase
 		$this->expectExceptionMessage('Response body is empty.');
 
 		$caller(['test']);
+	}
+
+	public function testRedirects()
+	{
+		$this->response = new RedirectResponse(config('App'));
+		$caller = $this->getFilterCaller(MenusFilter::class, 'after');
+
+		$result = $caller(['test']);
+
+		$this->assertNull($result);
 	}
 
 	public function testUnknownAlias()
