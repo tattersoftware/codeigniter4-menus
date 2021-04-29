@@ -1,5 +1,8 @@
 <?php namespace Config;
 
+use Tatter\Menus\Config\Menus as BaseMenus;
+use Tatter\Menus\Menus\BreadcrumbsMenu;
+
 /***
 *
 * This file contains example values to alter default library behavior.
@@ -10,12 +13,14 @@
 *
 ***/
 
-class Menus extends \Tatter\Menus\Config\Menus
+class Menus extends BaseMenus
 {
 	/**
 	 * Menu class aliases.
 	 *
 	 * @var array<string, string>
 	 */
-	public $aliases = [];
+	public $aliases = [
+		'breadcrumbs' => BreadcrumbsMenu::class,
+	];
 }

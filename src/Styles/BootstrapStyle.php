@@ -1,4 +1,4 @@
-<?php namespace Tatter\Menus\Traits;
+<?php namespace Tatter\Menus\Styles;
 
 use Spatie\Menu\Link;
 
@@ -14,9 +14,11 @@ trait BootstrapStyle
 {
 	protected function applyBootstrapStyle(): void
     {
-		$this->builder->registerFilter(function (Link $link) {
-			$link->addParentClass('nav-item');
-			$link->addClass('nav-link');
-		});
+		$this->builder
+			->addClass('navbar-nav mr-auto')
+			->registerFilter(function (Link $link) {
+				$link->addParentClass('nav-item');
+				$link->addClass('nav-link');
+			});
 	}
 }
