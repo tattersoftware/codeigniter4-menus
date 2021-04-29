@@ -2,7 +2,21 @@
 
 ## [Unreleased](https://github.com/tattersoftware/codeigniter4-menus/tree/HEAD)
 
-[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.0...HEAD)
+[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.1...HEAD)
+
+**Closed issues:**
+
+- Redirects Fail [\#12](https://github.com/tattersoftware/codeigniter4-menus/issues/12)
+- Rename Traits [\#11](https://github.com/tattersoftware/codeigniter4-menus/issues/11)
+- Config: Packaged Menus [\#10](https://github.com/tattersoftware/codeigniter4-menus/issues/10)
+
+**Merged pull requests:**
+
+- Styles & Fixes [\#13](https://github.com/tattersoftware/codeigniter4-menus/pull/13) ([MGatner](https://github.com/MGatner))
+
+## [v0.9.1](https://github.com/tattersoftware/codeigniter4-menus/tree/v0.9.1) (2021-04-23)
+
+[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.0...v0.9.1)
 
 **Closed issues:**
 
