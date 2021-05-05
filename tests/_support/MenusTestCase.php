@@ -32,9 +32,8 @@ class MenusTestCase extends CIUnitTestCase
 		Factories::injectMock('config', 'App', $config);
 
 		// Set a current URL for checking "active" links
-		$request      = Services::request();
-		$request->uri = new URI(site_url('current'));
-		Services::injectMock('request', $request);
+		$_SERVER['REQUEST_URI'] = '/current';
+		Services::injectMock('request', null);
 
 		// Create some Menu aliases for testing
 		$config          = new MenusConfig();
