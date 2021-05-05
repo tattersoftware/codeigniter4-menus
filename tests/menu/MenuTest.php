@@ -1,5 +1,6 @@
 <?php namespace Tests\Support;
 
+use Config\Services;
 use Spatie\Menu\Menu as BaseMenu;
 use Tatter\Menus\Menu;
 use Tests\Support\MenusTestCase;
@@ -7,23 +8,18 @@ use Tests\Support\MenusTestCase;
 class MenuTest extends MenusTestCase
 {
 	/**
-	 * @var Menu
+	 * Generates a test Menu on-the-fly
+	 *
+	 * @return Menu
 	 */
-	private $menu;
-
-	/**
-	 * Creates a basic Menu to use for testing.
-	 */
-	protected function setUp(): void
+	private function menu(): Menu
 	{
-		parent::setUp();
-
-		$this->menu = new class extends Menu {
+		return new class extends Menu {
 
 			public function __toString(): string
 			{
 				return $this->builder
-					->link(site_url('/'), 'Home')
+					->link(site_url(''), 'Home')
 					->link(site_url('/current'), 'Grain')
 					->render();
 			}
@@ -32,7 +28,7 @@ class MenuTest extends MenusTestCase
 
 	public function testGetBuilder()
 	{
-		$result = $this->menu->builder();
+		$result = $this->menu()->builder();
 
 		$this->assertInstanceOf(BaseMenu::class, $result);
 	}
@@ -55,7 +51,19 @@ class MenuTest extends MenusTestCase
 	public function testGetUsesCurrentUrl()
 	{
 		$expected = '<ul><li><a href="http://example.com/">Home</a></li><li class="active exact-active"><a href="http://example.com/current">Grain</a></li></ul>';
-		$result   = $this->menu->__toString();
+		$result   = $this->menu()->__toString();
+
+		$this->assertSame($expected, $result);
+	}
+
+	public function testGetUsesIndexPage()
+	{
+		$config = config('App');
+		$config->indexPage = 'index.php';
+		Services::injectMock('request', null);
+
+		$expected = '<ul><li><a href="http://example.com/index.php">Home</a></li><li class="active exact-active"><a href="http://example.com/index.php/current">Grain</a></li></ul>';
+		$result   = $this->menu()->__toString();
 
 		$this->assertSame($expected, $result);
 	}
