@@ -24,3 +24,5 @@ jobs:
           fetch-depth: 0
       - name: Run comparison
         uses: docker://nyholm/roave-bc-check-ga
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
