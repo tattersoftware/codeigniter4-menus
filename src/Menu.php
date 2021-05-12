@@ -28,6 +28,7 @@ abstract class Menu
 	 */
     public function __construct(BaseMenu $builder = null)
     {
+    	//test
 		$current = $this->detectCurrent();
 		$root    = (new URI(site_url()))->getPath() ?? '/';
 
