@@ -1,8 +1,24 @@
 # Changelog
 
-## [Unreleased](https://github.com/tattersoftware/codeigniter4-menus/tree/HEAD)
+## [v1.0.0](https://github.com/tattersoftware/codeigniter4-menus/tree/v1.0.0) (2021-06-15)
 
-[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.1...HEAD)
+[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.3...v1.0.0)
+
+**Merged pull requests:**
+
+- Loosen Filter [\#20](https://github.com/tattersoftware/codeigniter4-menus/pull/20) ([MGatner](https://github.com/MGatner))
+
+## [v0.9.3](https://github.com/tattersoftware/codeigniter4-menus/tree/v0.9.3) (2021-05-05)
+
+[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.2...v0.9.3)
+
+**Merged pull requests:**
+
+- Active discovery [\#14](https://github.com/tattersoftware/codeigniter4-menus/pull/14) ([MGatner](https://github.com/MGatner))
+
+## [v0.9.2](https://github.com/tattersoftware/codeigniter4-menus/tree/v0.9.2) (2021-04-29)
+
+[Full Changelog](https://github.com/tattersoftware/codeigniter4-menus/compare/v0.9.1...v0.9.2)
 
 **Closed issues:**
 
