@@ -13,7 +13,7 @@
 		executionOrder="random"
 		failOnRisky="true"
 		failOnWarning="true"
-		stopOnError="true"
+		stopOnError="false"
 		stopOnFailure="false"
 		stopOnIncomplete="false"
 		stopOnSkipped="false"
@@ -89,6 +89,7 @@
 		<env name="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
 
 		<!-- Database configuration -->
+		<env name="database.tests.strictOn" value="true"/>
 		<!-- Uncomment to use alternate testing database configuration
 		<env name="database.tests.hostname" value="localhost"/>
 		<env name="database.tests.database" value="tests"/>
