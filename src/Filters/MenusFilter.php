@@ -39,18 +39,16 @@ class MenusFilter implements FilterInterface
 		{
 			throw new InvalidArgumentException('No arguments supplied to Menus filter.');
 		}
-		// Ignore Redirects
-		if ($response instanceof RedirectResponse)
+		// Ignore irrelevent responses
+		if ($response instanceof RedirectResponse || empty($response->getBody()))
 		{
 			return null;
 		}
-		if (empty($response->getBody()))
-		{
-			throw new RuntimeException('Response body is empty.');
-		}
+
+		// Make sure not to run on alternate contents
 		if (strpos($response->getHeaderLine('Content-Type'), 'html') === false)
 		{
-			throw new RuntimeException('Menus may only be applied to HTML content.');
+			return null;
 		}
 
 		$config = config('Menus');
@@ -78,12 +76,8 @@ class MenusFilter implements FilterInterface
 			$content = (string) (new $class);
 			$count   = 0;
 
-			// Swap the content for the placeholder and verify a match
+			// Swap the content for the placeholder
 			$body = str_replace('{{' . $alias . '}}', $content, $body, $count);
-			if ($count === 0)
-			{
-				throw new RuntimeException('Missing placeholder text for menu: ' . $alias);
-			}
 		}
 
 		// Use the new body and return the updated Reponse
