@@ -32,28 +32,6 @@ class MenusFilterTest extends MenusTestCase
 		($this->caller)();
 	}
 
-	public function testWrongContentType()
-	{
-		$this->response->setHeader('Content-Type', 'application/json');
-		$caller = $this->getFilterCaller(MenusFilter::class, 'after');
-
-		$this->expectException('RuntimeException');
-		$this->expectExceptionMessage('Menus may only be applied to HTML content.');
-
-		$caller(['test']);
-	}
-
-	public function testEmptyBody()
-	{
-		$this->response->setBody('');
-		$caller = $this->getFilterCaller(MenusFilter::class, 'after');
-
-		$this->expectException('RuntimeException');
-		$this->expectExceptionMessage('Response body is empty.');
-
-		$caller(['test']);
-	}
-
 	public function testRedirects()
 	{
 		$this->response = new RedirectResponse(config('App'));
@@ -88,15 +66,22 @@ class MenusFilterTest extends MenusTestCase
 		($this->caller)(['fake']);
 	}
 
-	public function testMissingPlaceholder()
+	public function testEmptyBody()
 	{
-		$this->response->setBody('{{foobar}}');
+		$this->response->setBody('');
 		$caller = $this->getFilterCaller(MenusFilter::class, 'after');
 
-		$this->expectException('RuntimeException');
-		$this->expectExceptionMessage('Missing placeholder text for menu: test');
+		$result = ($caller)(['test']);
+		$this->assertNull($result);
+	}
 
-		$caller(['test']);
+	public function testWrongContentType()
+	{
+		$this->response->setHeader('Content-Type', 'application/json');
+		$caller = $this->getFilterCaller(MenusFilter::class, 'after');
+
+		$result = ($caller)(['test']);
+		$this->assertNull($result);
 	}
 
 	public function testValid()
