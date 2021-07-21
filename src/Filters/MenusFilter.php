@@ -40,12 +40,12 @@ class MenusFilter implements FilterInterface
 			throw new InvalidArgumentException('No arguments supplied to Menus filter.');
 		}
 		// Ignore irrelevent responses
-		if ($response instanceof RedirectResponse || empty($response->getBody()))
+		if ((is_cli() && ENVIRONMENT !== 'testing') || $response instanceof RedirectResponse || empty($response->getBody()))
 		{
 			return null;
 		}
 
-		// Make sure not to run on alternate contents
+		// Only run on HTMl content
 		if (strpos($response->getHeaderLine('Content-Type'), 'html') === false)
 		{
 			return null;
@@ -80,7 +80,7 @@ class MenusFilter implements FilterInterface
 			$body = str_replace('{{' . $alias . '}}', $content, $body, $count);
 		}
 
-		// Use the new body and return the updated Reponse
+		// Use the new body and return the updated Response
 		return $response->setBody($body);
 	}
 }
