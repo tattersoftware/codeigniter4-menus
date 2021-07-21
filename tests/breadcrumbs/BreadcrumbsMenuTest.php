@@ -1,5 +1,6 @@
 <?php namespace Tests\Support;
 
+use Config\Services;
 use Tatter\Menus\Breadcrumb;
 use Tatter\Menus\Menus\BreadcrumbsMenu;
 use Tests\Support\MenusTestCase;
@@ -33,9 +34,13 @@ class BreadcrumbsMenuTest extends MenusTestCase
 
 	public function testDiscovery()
 	{
+		$_SERVER['REQUEST_URI'] = '/chicken/toast';
+		Services::resetSingle('request');
+
 		$expected = [
 			new Breadcrumb('http://example.com', 'Home'),
-			new Breadcrumb('http://example.com/current', 'Current'),
+			new Breadcrumb('http://example.com/chicken', 'Chicken'),
+			new Breadcrumb('http://example.com/chicken/toast', 'Toast'),
 		];
 
 		$result = BreadcrumbsMenu::discover();

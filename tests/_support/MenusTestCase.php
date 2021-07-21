@@ -33,7 +33,7 @@ class MenusTestCase extends CIUnitTestCase
 
 		// Set a current URL for checking "active" links
 		$_SERVER['REQUEST_URI'] = '/current';
-		Services::injectMock('request', null);
+		Services::resetSingle('request');
 
 		// Create some Menu aliases for testing
 		$config          = new MenusConfig();
