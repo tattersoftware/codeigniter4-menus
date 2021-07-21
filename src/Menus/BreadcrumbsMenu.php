@@ -46,9 +46,11 @@ class BreadcrumbsMenu extends Menu
 		];
 
 		// Add each segment
+		$segments = [];
 		foreach ($uri->getSegments() as $segment)
 		{
-			$breadcrumbs[] = new Breadcrumb(site_url($segment));
+			$segments[]    = $segment;
+			$breadcrumbs[] = new Breadcrumb(site_url($segments));
 		}
 		self::set($breadcrumbs);
 
