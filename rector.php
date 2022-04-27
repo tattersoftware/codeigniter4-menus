@@ -74,6 +74,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Are there files or rules you need to skip?
     $parameters->set(Option::SKIP, [
+        __DIR__ . '/src/Config/Filters.php',
         __DIR__ . '/src/Views',
 
         JsonThrowOnErrorRector::class,
