@@ -1,7 +1,8 @@
-<?php namespace Tests\Support;
+<?php
+
+namespace Tests\Support;
 
 use CodeIgniter\Config\Factories;
-use CodeIgniter\HTTP\URI;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\App;
 use Config\Services;
@@ -10,40 +11,43 @@ use Tatter\Menus\Config\Menus as MenusConfig;
 use Tests\Support\Menus\NotMenu;
 use Tests\Support\Menus\TestMenu;
 
-class MenusTestCase extends CIUnitTestCase
+/**
+ * @internal
+ */
+abstract class MenusTestCase extends CIUnitTestCase
 {
-	use Expeditable;
+    use Expeditable;
 
-	/**
-	 * The configuration.
-	 *
-	 * @var MenusConfig
-	 */
-	protected $config;
+    /**
+     * The configuration.
+     *
+     * @var MenusConfig
+     */
+    protected $config;
 
-	protected function setUp(): void
-	{
-		parent::setUp();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-		// Use some standard settings that affect URLs
-		$config = new App();
-		$config->baseURL   = 'http://example.com';
-		$config->indexPage = '';
-		Factories::injectMock('config', 'App', $config);
+        // Use some standard settings that affect URLs
+        $config            = new App();
+        $config->baseURL   = 'http://example.com';
+        $config->indexPage = '';
+        Factories::injectMock('config', 'App', $config);
 
-		// Set a current URL for checking "active" links
-		$_SERVER['REQUEST_URI'] = '/current';
-		Services::resetSingle('request');
+        // Set a current URL for checking "active" links
+        $_SERVER['REQUEST_URI'] = '/current';
+        Services::resetSingle('request');
 
-		// Create some Menu aliases for testing
-		$config          = new MenusConfig();
-		$config->aliases = [
-			'test' => TestMenu::class,
-			'fake' => NotMenu::class,
-			'fail' => 'MissingMenu',
-		];
+        // Create some Menu aliases for testing
+        $config          = new MenusConfig();
+        $config->aliases = [
+            'test' => TestMenu::class,
+            'fake' => NotMenu::class,
+            'fail' => 'MissingMenu',
+        ];
 
-		$this->config = $config;
-		Factories::injectMock('config', 'Menus', $this->config);
-	}
+        $this->config = $config;
+        Factories::injectMock('config', 'Menus', $this->config);
+    }
 }

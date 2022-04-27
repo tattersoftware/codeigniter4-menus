@@ -1,7 +1,9 @@
-<?php namespace Tatter\Menus\Styles;
+<?php
 
-use Tatter\Menus\Menu;
+namespace Tatter\Menus\Styles;
+
 use Spatie\Menu\Link;
+use Tatter\Menus\Menu;
 
 /**
  * Bootstrap Styler Trait
@@ -13,13 +15,13 @@ use Spatie\Menu\Link;
  */
 trait BootstrapStyle
 {
-	protected function applyBootstrapStyle(): void
+    protected function applyBootstrapStyle(): void
     {
-		$this->builder
-			->addClass('navbar-nav mr-auto')
-			->registerFilter(function (Link $link) {
-				$link->addParentClass('nav-item');
-				$link->addClass('nav-link');
-			});
-	}
+        $this->builder
+            ->addClass('navbar-nav mr-auto')
+            ->registerFilter(static function (Link $link) {
+                $link->addParentClass('nav-item');
+                $link->addClass('nav-link');
+            });
+    }
 }

@@ -3,5 +3,5 @@
 namespace Tatter\Menus\Language\en;
 
 return [
-	'home' => 'Home',
+    'home' => 'Home',
 ];

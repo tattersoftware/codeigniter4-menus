@@ -1,52 +1,54 @@
-<?php namespace Tests\Support;
+<?php
+
+namespace Tests\Support;
 
 use Tatter\Menus\Menu;
-use Tatter\Menus\Styles\BootstrapStyle;
 use Tatter\Menus\Styles\AdminLTEStyle;
-use Tests\Support\MenusTestCase;
+use Tatter\Menus\Styles\BootstrapStyle;
 
-class StylesTest extends MenusTestCase
+/**
+ * @internal
+ */
+final class StylesTest extends MenusTestCase
 {
-	public function testBootstrapStyleAppliesClasses()
-	{
-		$menu = new class extends Menu {
+    public function testBootstrapStyleAppliesClasses()
+    {
+        $menu = new class () extends Menu {
+            use BootstrapStyle;
 
-			use BootstrapStyle;
+            public function __toString(): string
+            {
+                return $this->builder
+                    ->link(site_url('/'), 'Home')
+                    ->link(site_url('/current'), 'Grain')
+                    ->render();
+            }
+        };
 
-			public function __toString(): string
-			{
-				return $this->builder
-					->link(site_url('/'), 'Home')
-					->link(site_url('/current'), 'Grain')
-					->render();
-			}
-		};
+        $result = $menu->__toString();
 
-		$result = $menu->__toString();
+        $this->assertStringContainsString('li class="nav-item"', $result);
+        $this->assertStringContainsString('class="nav-link"', $result);
+    }
 
-		$this->assertStringContainsString('li class="nav-item"', $result);
-		$this->assertStringContainsString('class="nav-link"', $result);
-	}
+    public function testAdminLTEStyleAppliesClasses()
+    {
+        $menu = new class () extends Menu {
+            use AdminLTEStyle;
 
-	public function testAdminLTEStyleAppliesClasses()
-	{
-		$menu = new class extends Menu {
+            public function __toString(): string
+            {
+                return $this->builder
+                    ->link(site_url('/'), 'Home')
+                    ->link(site_url('/current'), 'Grain')
+                    ->render();
+            }
+        };
 
-			use AdminLTEStyle;
+        $result = $menu->__toString();
 
-			public function __toString(): string
-			{
-				return $this->builder
-					->link(site_url('/'), 'Home')
-					->link(site_url('/current'), 'Grain')
-					->render();
-			}
-		};
-
-		$result = $menu->__toString();
-
-		$this->assertStringContainsString('data-widget="treeview"', $result);
-		$this->assertStringContainsString('class="nav nav-pills', $result);
-		$this->assertStringContainsString('class="nav-link"', $result);
-	}
+        $this->assertStringContainsString('data-widget="treeview"', $result);
+        $this->assertStringContainsString('class="nav nav-pills', $result);
+        $this->assertStringContainsString('class="nav-link"', $result);
+    }
 }

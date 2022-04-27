@@ -1,7 +1,9 @@
-<?php namespace Tatter\Menus\Styles;
+<?php
 
-use Tatter\Menus\Menu;
+namespace Tatter\Menus\Styles;
+
 use Spatie\Menu\Link;
+use Tatter\Menus\Menu;
 
 /**
  * AdminLTE Styler Trait
@@ -13,17 +15,17 @@ use Spatie\Menu\Link;
  */
 trait AdminLTEStyle
 {
-	protected function applyAdminLTEStyle(): void
+    protected function applyAdminLTEStyle(): void
     {
-		$this->builder
-			->addClass('nav nav-pills nav-sidebar flex-column')
-			->setActiveClass('active menu-open')
-			->setAttribute('data-widget', 'treeview')
-			->setAttribute('role', 'menu')
-			->setAttribute('data-accordion', 'false')
-			->registerFilter(function (Link $link) {
-				$link->addParentClass('nav-item');
-				$link->addClass('nav-link');
-			});
-	}
+        $this->builder
+            ->addClass('nav nav-pills nav-sidebar flex-column')
+            ->setActiveClass('active menu-open')
+            ->setAttribute('data-widget', 'treeview')
+            ->setAttribute('role', 'menu')
+            ->setAttribute('data-accordion', 'false')
+            ->registerFilter(static function (Link $link) {
+                $link->addParentClass('nav-item');
+                $link->addClass('nav-link');
+            });
+    }
 }

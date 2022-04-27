@@ -1,7 +1,9 @@
-<?php namespace Tatter\Menus\Styles;
+<?php
 
-use Tatter\Menus\Menu;
+namespace Tatter\Menus\Styles;
+
 use Spatie\Menu\Link;
+use Tatter\Menus\Menu;
 
 /**
  * Breadcrumbs Style Trait
@@ -14,14 +16,14 @@ use Spatie\Menu\Link;
  */
 trait BreadcrumbsStyle
 {
-	protected function applyBreadcrumbsStyle(): void
+    protected function applyBreadcrumbsStyle(): void
     {
-    	$this->builder
-	    	->addClass('breadcrumb')
-	    	->setWrapperTag('ol')
-    		->wrap('nav', ['aria-label' => 'breadcrumb'])
-			->registerFilter(function (Link $link) {
-				$link->addParentClass('breadcrumb-item');
-			});
-	}
+        $this->builder
+            ->addClass('breadcrumb')
+            ->setWrapperTag('ol')
+            ->wrap('nav', ['aria-label' => 'breadcrumb'])
+            ->registerFilter(static function (Link $link) {
+                $link->addParentClass('breadcrumb-item');
+            });
+    }
 }
