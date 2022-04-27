@@ -1,8 +1,9 @@
-<?php namespace Tests\Support;
+<?php
+
+namespace Tests\Support;
 
 use Config\Services;
 use Tatter\Menus\Filters\MenusFilter;
-use Tests\Support\MenusTestCase;
 
 /**
  * Verifies that the MenusFilter and
@@ -10,17 +11,19 @@ use Tests\Support\MenusTestCase;
  * by the Filters library. This test
  * should not be necessary but is provided
  * as a precaution.
+ *
+ * @internal
  */
-class FilterDiscoveryTest extends MenusTestCase
+final class FilterDiscoveryTest extends MenusTestCase
 {
-	public function testDiscovers()
-	{
-		$filters = Services::filters();
-		$filters->initialize();
+    public function testDiscovers()
+    {
+        $filters = Services::filters();
+        $filters->initialize();
 
-		$result = $this->getPrivateProperty($filters, 'config');
+        $result = $this->getPrivateProperty($filters, 'config');
 
-		$this->assertArrayHasKey('menus', $result->aliases);
-		$this->assertSame(MenusFilter::class, $result->aliases['menus']);
-	}
+        $this->assertArrayHasKey('menus', $result->aliases);
+        $this->assertSame(MenusFilter::class, $result->aliases['menus']);
+    }
 }

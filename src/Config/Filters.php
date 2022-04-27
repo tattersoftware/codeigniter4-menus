@@ -1,4 +1,6 @@
-<?php namespace Tatter\Menus\Config;
+<?php
+
+namespace Tatter\Menus\Config;
 
 use Config\Filters;
 use Tatter\Menus\Filters\MenusFilter;

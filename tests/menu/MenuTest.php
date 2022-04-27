@@ -1,70 +1,70 @@
-<?php namespace Tests\Support;
+<?php
+
+namespace Tests\Support;
 
 use Config\Services;
 use Spatie\Menu\Menu as BaseMenu;
 use Tatter\Menus\Menu;
-use Tests\Support\MenusTestCase;
 
-class MenuTest extends MenusTestCase
+/**
+ * @internal
+ */
+final class MenuTest extends MenusTestCase
 {
-	/**
-	 * Generates a test Menu on-the-fly
-	 *
-	 * @return Menu
-	 */
-	private function menu(): Menu
-	{
-		return new class extends Menu {
+    /**
+     * Generates a test Menu on-the-fly
+     */
+    private function menu(): Menu
+    {
+        return new class () extends Menu {
+            public function __toString(): string
+            {
+                return $this->builder
+                    ->link(site_url(''), 'Home')
+                    ->link(site_url('/current'), 'Grain')
+                    ->render();
+            }
+        };
+    }
 
-			public function __toString(): string
-			{
-				return $this->builder
-					->link(site_url(''), 'Home')
-					->link(site_url('/current'), 'Grain')
-					->render();
-			}
-		};
-	}
+    public function testGetBuilder()
+    {
+        $result = $this->menu()->builder();
 
-	public function testGetBuilder()
-	{
-		$result = $this->menu()->builder();
+        $this->assertInstanceOf(BaseMenu::class, $result);
+    }
 
-		$this->assertInstanceOf(BaseMenu::class, $result);
-	}
+    public function testUsesBuilder()
+    {
+        $menu = new class (BaseMenu::new()->link(site_url('/home'), 'asparagus')) extends Menu {
+            public function __toString(): string
+            {
+                return $this->builder->render();
+            }
+        };
 
-	public function testUsesBuilder()
-	{
-		$menu = new class(BaseMenu::new()->link(site_url('/home'), 'asparagus')) extends Menu {
+        $result = (string) $menu;
 
-			public function __toString(): string
-			{
-				return $this->builder->render();
-			}
-		};
+        $this->assertSame('<ul><li><a href="http://example.com/home">asparagus</a></li></ul>', $result);
+    }
 
-		$result = (string) $menu;
+    public function testGetUsesCurrentUrl()
+    {
+        $expected = '<ul><li><a href="http://example.com/">Home</a></li><li class="active exact-active"><a href="http://example.com/current">Grain</a></li></ul>';
+        $result   = $this->menu()->__toString();
 
-		$this->assertSame('<ul><li><a href="http://example.com/home">asparagus</a></li></ul>', $result);
-	}
+        $this->assertSame($expected, $result);
+    }
 
-	public function testGetUsesCurrentUrl()
-	{
-		$expected = '<ul><li><a href="http://example.com/">Home</a></li><li class="active exact-active"><a href="http://example.com/current">Grain</a></li></ul>';
-		$result   = $this->menu()->__toString();
+    public function testGetUsesIndexPage()
+    {
+        $config            = config('App');
+        $config->indexPage = 'index.php';
+        Services::injectMock('request', null);
 
-		$this->assertSame($expected, $result);
-	}
+        $expected = '<ul><li><a href="http://example.com/index.php">Home</a></li><li class="active exact-active"><a href="http://example.com/index.php/current">Grain</a></li></ul>';
+        $result   = $this->menu()->__toString();
 
-	public function testGetUsesIndexPage()
-	{
-		$config = config('App');
-		$config->indexPage = 'index.php';
-		Services::injectMock('request', null);
-
-		$expected = '<ul><li><a href="http://example.com/index.php">Home</a></li><li class="active exact-active"><a href="http://example.com/index.php/current">Grain</a></li></ul>';
-		$result   = $this->menu()->__toString();
-
-		$this->assertSame($expected, $result);
-	}
+        $this->assertSame($expected, $result);
+    }
 }

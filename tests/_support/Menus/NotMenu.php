@@ -1,4 +1,6 @@
-<?php namespace Tests\Support\Menus;
+<?php
+
+namespace Tests\Support\Menus;
 
 class NotMenu
 {
