@@ -7,10 +7,7 @@ use Tests\Support\MenusTestCase;
 
 class BreadcrumbsMenuTest extends MenusTestCase
 {
-	/**
-	 * @var BreadcrumbsMenu
-	 */
-	private $menu;
+	private BreadcrumbsMenu $menu;
 
 	/**
 	 * Initializes the Breadcrumbs menu.
@@ -103,7 +100,7 @@ class BreadcrumbsMenuTest extends MenusTestCase
 
 	public function testPush()
 	{
-		$breadcrumbs = BreadcrumbsMenu::discover();
+		BreadcrumbsMenu::discover();
 
 		$breadcrumb = new Breadcrumb('food');
 

@@ -1,5 +1,6 @@
 <?php namespace Tatter\Menus\Styles;
 
+use Tatter\Menus\Menu;
 use Spatie\Menu\Link;
 
 /**
@@ -8,7 +9,7 @@ use Spatie\Menu\Link;
  * Applies CSS classes & styles
  * to make a Bootstrap-style Menu.
  *
- * @mixin \Tatter\Menus\Menu
+ * @mixin Menu
  */
 trait BootstrapStyle
 {

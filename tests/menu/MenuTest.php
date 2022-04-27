@@ -9,8 +9,6 @@ class MenuTest extends MenusTestCase
 {
 	/**
 	 * Generates a test Menu on-the-fly
-	 *
-	 * @return Menu
 	 */
 	private function menu(): Menu
 	{

@@ -1,5 +1,6 @@
 <?php namespace Tests\Support;
 
+use Closure;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Test\FilterTestTrait;
@@ -11,7 +12,7 @@ class MenusFilterTest extends MenusTestCase
 	use FilterTestTrait;
 
 	/**
-	 * @var \Closure
+	 * @var Closure
 	 */
 	private $caller;
 

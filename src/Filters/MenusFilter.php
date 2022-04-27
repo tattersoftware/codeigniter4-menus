@@ -26,11 +26,8 @@ class MenusFilter implements FilterInterface
 	/**
 	 * Renders the menus and injects their content.
 	 *
-	 * @param RequestInterface  $request
-	 * @param ResponseInterface $response
 	 * @param array|null        $arguments
 	 *
-	 * @return ResponseInterface|null
 	 */
 	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null): ?ResponseInterface
 	{

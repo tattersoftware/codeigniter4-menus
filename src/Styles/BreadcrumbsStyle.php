@@ -1,5 +1,6 @@
 <?php namespace Tatter\Menus\Styles;
 
+use Tatter\Menus\Menu;
 use Spatie\Menu\Link;
 
 /**
@@ -9,7 +10,7 @@ use Spatie\Menu\Link;
  * to make a Bootstrap-style
  * breadcrumbs nav Menu.
  *
- * @mixin \Tatter\Menus\Menu
+ * @mixin Menu
  */
 trait BreadcrumbsStyle
 {

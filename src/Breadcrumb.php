@@ -25,10 +25,9 @@ class Breadcrumb
 	public $display;
 
 	/**
-	 * @param string $url
-	 * @param string|null $display
-	 */
-    public function __construct(string $url, string $display = null)
+				 * @param string|null $display
+				 */
+				public function __construct(string $url, string $display = null)
     {
 		// If no display was passed then make a best guess
 		if (empty($display))

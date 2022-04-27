@@ -38,7 +38,7 @@ class BreadcrumbsMenu extends Menu
 	 */
     public static function discover(URI $uri = null): array
 	{
-		$uri = $uri ?? Services::request()->uri;
+		$uri ??= Services::request()->uri;
 
 		// Always start with the base URL
 		$breadcrumbs = [
@@ -90,24 +90,20 @@ class BreadcrumbsMenu extends Menu
 	/**
 	 * Adds a new Breadcrumb to the Menu.
 	 *
-	 * @param Breadcrumb $breadcrumb
 	 *
 	 * @return int New number of items in the Menu
 	 */
 	public static function push(Breadcrumb $breadcrumb): int
     {
-    	self::$breadcrumbs = self::$breadcrumbs ?? [];
+    	self::$breadcrumbs ??= [];
 
     	return array_push(self::$breadcrumbs, $breadcrumb);
 	}
 
 	//--------------------------------------------------------------------
-
 	/**
 	 * Builds the Menu and returns the
 	 * rendered HTML string.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{

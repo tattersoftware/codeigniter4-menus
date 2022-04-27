@@ -123,8 +123,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MakeInheritedMethodVisibilitySameAsParentRector::class);
     $services->set(SimplifyEmptyArrayCheckRector::class);
     $services->set(NormalizeNamespaceByPSR4ComposerAutoloadRector::class);
-    $services->set(TypedPropertyRector::class)
-        ->configure([
-            TypedPropertyRector::INLINE_PUBLIC => true,
-        ]);
+    // $services->set(TypedPropertyRector::class)
+    //     ->configure([
+    //         TypedPropertyRector::INLINE_PUBLIC => true,
+    //     ]);
 };

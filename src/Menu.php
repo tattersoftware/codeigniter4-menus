@@ -29,7 +29,7 @@ abstract class Menu
     public function __construct(BaseMenu $builder = null)
     {
 		$current = $this->detectCurrent();
-		$root    = (new URI(site_url()))->getPath() ?? '/';
+		$root    = (new URI(site_url()))->getPath() ?: '/';
 
 		$this->builder = $builder ?? BaseMenu::new()->setActive($current, $root);
 
@@ -55,8 +55,6 @@ abstract class Menu
 	/**
 	 * Builds the Menu and returns the
 	 * rendered HTML string.
-	 *
-	 * @return string
 	 */
 	abstract public function __toString(): string;
 
@@ -69,7 +67,6 @@ abstract class Menu
 	 * replaced if that bug is fixed or if we get this:
 	 * - https://github.com/codeigniter4/CodeIgniter4/pull/4647
 	 *
-	 * @return string
 	 * @internal
 	 */
 	protected function detectCurrent(): string
