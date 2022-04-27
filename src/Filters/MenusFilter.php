@@ -39,10 +39,17 @@ class MenusFilter implements FilterInterface
 		{
 			throw new InvalidArgumentException('No arguments supplied to Menus filter.');
 		}
+
 		// Ignore irrelevent responses
-		if ((is_cli() && ENVIRONMENT !== 'testing') || $response instanceof RedirectResponse || empty($response->getBody()))
+		if ($response instanceof RedirectResponse || empty($response->getBody()))
 		{
 			return null;
+		}
+
+		// Check CLI separately for coverage
+		if (is_cli() && ENVIRONMENT !== 'testing')
+		{
+			return null; // @codeCoverageIgnore
 		}
 
 		// Only run on HTMl content
