@@ -38,15 +38,17 @@ final class BreadcrumbsMenuTest extends MenusTestCase
         $_SERVER['REQUEST_URI'] = '/chicken/toast';
         Services::resetSingle('request');
 
+        $breadcrumbs = BreadcrumbsMenu::discover();
+
         $expected = [
-            new Breadcrumb('http://example.com', 'Home'),
-            new Breadcrumb('http://example.com/chicken', 'Chicken'),
-            new Breadcrumb('http://example.com/chicken/toast', 'Toast'),
+            'http://example.com',
+            'http://example.com/chicken',
+            'http://example.com/chicken/toast',
         ];
+        $this->assertSame($expected, array_column($breadcrumbs, 'url'));
 
-        $result = BreadcrumbsMenu::discover();
-
-        $this->assertSame($expected, $result);
+        $expected = ['Home', 'Chicken', 'Toast'];
+        $this->assertSame($expected, array_column($breadcrumbs, 'display'));
     }
 
     public function testDefaultUsesDiscovery()
