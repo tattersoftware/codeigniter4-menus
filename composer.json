@@ -1,15 +1,14 @@
 {
     "name": "tatter/menus",
-    "type": "library",
     "description": "Dynamic menus for CodeIgniter 4",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "codeigniter",
         "codeigniter4",
         "menus",
         "navigation"
     ],
-    "homepage": "https://github.com/tattersoftware/codeigniter4-menus",
-    "license": "MIT",
     "authors": [
         {
             "name": "Matthew Gatner",
@@ -18,6 +17,7 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/tattersoftware/codeigniter4-menus",
     "require": {
         "php": "^7.4 || ^8.0",
         "spatie/menu": "^2.10 || ^3.0"
@@ -26,12 +26,8 @@
         "codeigniter4/framework": "^4.1",
         "tatter/tools": "^2.0"
     },
-    "config": {
-        "allow-plugins": {
-            "ergebnis/composer-normalize": true,
-            "phpstan/extension-installer": true
-        }
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Tatter\\Menus\\": "src"
@@ -45,8 +41,12 @@
             "Tests\\Support\\": "tests/_support"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true
+        }
+    },
     "scripts": {
         "analyze": "phpstan analyze",
         "ci": [
